@@ -1,21 +1,49 @@
-import { createContext, useState } from 'react'
+import { createContext, useEffect, useState } from "react";
 import todosList from "../data/todos.json";
-import categoryList from "../data/categories.json"
+import categoryList from "../data/categories.json";
+import { TodoService } from "../services/todos-service";
+import { CategoryService } from "../services/categories-service";
 export const TodosContext = createContext<any>(null);
 export interface Todo {
   id: number;
   content: string;
   isArchived: boolean;
   isCompleted: boolean;
-  category: string;
+  category: Category;
 }
-export interface Category { 
-    id: number;
-    name:string
+export interface Category {
+  id: number;
+  name: string;
 }
 const TodosContextProvider = ({ children }: any) => {
-    const [todos, setTodos] = useState<Todo[]>(todosList);
-    const [categories, setCategories] = useState<Category[]>(categoryList);
+  const [todos, setTodos] = useState<Todo[]>([]);
+  const [categories, setCategories] = useState<Category[]>([]);
+  const [completedNum, setCompletedNum] = useState<number>(0);
+  const [incompletedNum, setIncompletedNum] = useState<number>(0);
+  useEffect(() => {
+    TodoService.get()
+      .then((res) => {
+        setTodos(res);
+      })
+      .catch((e) => console.log(e));
+
+    CategoryService.get()
+      .then((res) => {
+        setCategories(res);
+      })
+      .catch((e) => console.log(e));
+  }, []);
+  useEffect(() => {
+    const completedNum = todos.reduce((a: number, b: Todo) => {
+      if (b.isCompleted) {
+        return ++a;
+      }
+      return a;
+    }, 0);
+    setCompletedNum(completedNum);
+    setIncompletedNum(todos.length - completedNum);
+  }, [todos]);
+
   return (
     <TodosContext.Provider
       value={{
@@ -23,11 +51,13 @@ const TodosContextProvider = ({ children }: any) => {
         setTodos,
         categories,
         setCategories,
+        completedNum,
+        incompletedNum,
       }}
     >
       {children}
     </TodosContext.Provider>
   );
-}
+};
 
-export default TodosContextProvider
+export default TodosContextProvider;

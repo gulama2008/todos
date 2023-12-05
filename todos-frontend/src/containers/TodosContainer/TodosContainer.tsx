@@ -1,8 +1,12 @@
-import React from 'react'
-
+import { useContext } from "react"
+import styles from "./TodosContainer.module.scss"
+import { TodosContext } from "../../context/TodosContextProvider"
 const TodosContainer = () => {
+  const { todos } = useContext(TodosContext);
   return (
-    <div>TodosContainer</div>
+    <div className={styles.container}>
+      <div>My TODO List</div>
+    </div>
   )
 }
 
