@@ -4,11 +4,12 @@ import {
   Todo,
   TodosContext,
 } from "../../context/TodosContextProvider";
+import { TodoService } from "../../services/todos-service";
 export interface TodoProps {
   todo: Todo;
 }
 const TodoItem = ({ todo }: TodoProps) => {
-  const { categories } = useContext(TodosContext);
+  const { categories,changeTodos,setChangeTodos } = useContext(TodosContext);
   const [todoContent, setTodoContent] = useState<string>("");
   const [todoCategory, setTodoCategory] = useState<number>(todo.category.id);
   useEffect(() => {
@@ -21,17 +22,24 @@ const TodoItem = ({ todo }: TodoProps) => {
     const handleCategoryChange = (e: any) => {
       setTodoCategory(e.target.value);
     };
+  
+  const handleDelete = () => { 
+    TodoService.deleteTodo(todo.id)
+      .then(() => setChangeTodos(changeTodos-1))
+    .catch(e=>console.log(e))
+  }
+  
   return (
     <div>
       <input value={todoContent} onChange={handleContentChange} />
       <select onChange={handleCategoryChange} value={todoCategory}>
         {categories.map((category: Category) => {
-          return <option value={category.id}>{category.name}</option>;
+          return <option value={category.id} key={category.id}>{category.name}</option>;
         })}
       </select>
       <input type="checkbox" />
       <button>copy</button>
-      <button>delete</button>
+      <button onClick={handleDelete}>delete</button>
     </div>
   );
 };

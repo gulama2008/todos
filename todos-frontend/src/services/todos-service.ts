@@ -17,11 +17,18 @@ export class TodoService {
       },
       body: JSON.stringify(data),
     });
-      
       if (!response.ok) { 
           throw new Error("Could not create todo")
       }
-
       return response.json();
   }
+    
+    public static async deleteTodo(id: number){ 
+        const response = await fetch(`http://localhost:8080/todos/${id}`, {
+          method: "DELETE",
+        });
+        if (!response.ok) {
+          throw new Error("Could not delete");
+        }
+    }
 }

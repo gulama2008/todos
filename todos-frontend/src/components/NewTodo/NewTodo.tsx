@@ -3,7 +3,7 @@ import { Category, TodosContext } from "../../context/TodosContextProvider";
 import { TodoService } from "../../services/todos-service";
 
 const NewTodo = () => {
-    const { categories, setShowNewTodo } = useContext(TodosContext);
+    const { categories, setShowNewTodo,changeTodos,setChangeTodos } = useContext(TodosContext);
     const handleCancel = () => { 
         setShowNewTodo(false);
     }
@@ -13,7 +13,7 @@ const NewTodo = () => {
             categoryId: 3
         }
         TodoService.createTodo(data)
-            .then(res => console.log(res))
+            .then(() => setChangeTodos(changeTodos+1))
         .catch(e=>console.log(e)
         )
         
@@ -24,11 +24,11 @@ const NewTodo = () => {
       <select name="" id="">
         <option value="">Please select a category</option>
         {categories.map((category: Category) => {
-          return <option value={category.id}>{category.name}</option>;
+          return <option value={category.id} key={category.id}>{category.name}</option>;
         })}
       </select>
           <input type="checkbox" />
-          <button onClick={handleAdd}>Add</button>
+          <button onClick={handleAdd}>Save</button>
           <button onClick={handleCancel}>Cancel</button>
     </div>
   );

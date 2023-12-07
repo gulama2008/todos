@@ -25,6 +25,11 @@ public class TodoService {
         return this.todoRepository.findAll();
     }
 
+    public Optional<Todo> getById(Long id) {
+		Optional<Todo> foundTodo = todoRepository.findById(id);
+		return foundTodo;
+	}
+
     public Todo createTodo(TodoCreateDTO data) {
         Long id = data.getCategoryId();
         Optional<Category> category = this.categoryRepository.findById(id);
@@ -35,7 +40,21 @@ public class TodoService {
             return created;
         }
         return null;
-        
     }
+
+    public boolean deleteById(Long id) {
+		// check if what I want to delete exists
+		Optional<Todo> foundTodo = this.todoRepository.findById(id);
+		// if it exists call some repository method that deletes it
+		// return true so it's easy to handle in the controller
+		if(foundTodo.isPresent()) {
+			this.todoRepository.delete(foundTodo.get());
+			return true;
+		}
+		
+		return false;
+		
+		// if it doesn't exist, return false
+	}
 
 }
