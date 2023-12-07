@@ -20,6 +20,7 @@ const TodosContextProvider = ({ children }: any) => {
   const [categories, setCategories] = useState<Category[]>([]);
   const [completedNum, setCompletedNum] = useState<number>(0);
   const [incompletedNum, setIncompletedNum] = useState<number>(0);
+  const [showNewTodo, setShowNewTodo] = useState<boolean>(false);
   useEffect(() => {
     TodoService.get()
       .then((res) => {
@@ -53,6 +54,8 @@ const TodosContextProvider = ({ children }: any) => {
         setCategories,
         completedNum,
         incompletedNum,
+        showNewTodo,
+        setShowNewTodo,
       }}
     >
       {children}
