@@ -1,6 +1,10 @@
 import { useContext, useState } from "react";
 import { Category, TodosContext } from "../../context/TodosContextProvider";
 import { TodoService } from "../../services/todos-service";
+import styles from "./NewTodo.module.scss"
+import bin from "../../assets/delete.png";
+import edit from "../../assets/edit.png";
+import save from "../../assets/save.png";
 
 const NewTodo = () => {
   const { categories, setShowNewTodo, changeTodos, setChangeTodos } =
@@ -21,10 +25,12 @@ const NewTodo = () => {
     setShowNewTodo(false);
   };
   return (
-    <div>
+    <div className={styles.container}>
       <input
         type="text"
         value={content}
+        className={styles.input}
+        placeholder="+ Add new task..."
         onChange={(e) => {
           setContent(e.target.value);
         }}
@@ -33,11 +39,14 @@ const NewTodo = () => {
         name=""
         id=""
         value={category}
+        className={styles.select}
         onChange={(e) => {
           setCategory(parseInt(e.target.value));
         }}
       >
-        <option value="">Please select a category</option>
+        <option value="" className={styles.option}>
+          Please select a category
+        </option>
         {categories.map((category: Category) => {
           return (
             <option value={category.id} key={category.id}>
@@ -46,8 +55,10 @@ const NewTodo = () => {
           );
         })}
       </select>
-      <button onClick={handleAdd}>Save</button>
-      <button onClick={handleCancel}>Cancel</button>
+      <div className={styles.icon_container}> 
+        <img onClick={handleCancel} src={bin} className={styles.icon} />
+        <img onClick={handleAdd} src={save} className={styles.icon} />
+      </div>
     </div>
   );
 };
