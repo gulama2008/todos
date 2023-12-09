@@ -27,7 +27,12 @@ public class Category {
     @Column
     private String name;
 
+    public Category() {
+    }
 
+    public Category(String name) {
+        this.name = name;
+    }
 
     public String toString() {
         return this.name;

@@ -22,19 +22,22 @@ const TodosContextProvider = ({ children }: any) => {
   const [incompletedNum, setIncompletedNum] = useState<number>(0);
   const [showNewTodo, setShowNewTodo] = useState<boolean>(false);
   const [changeTodos, setChangeTodos] = useState<number>(0);
+  const [changeCategories, setChangeCategories] = useState<number>(0);
   useEffect(() => {
     TodoService.get()
       .then((res) => {
-        setTodos(res);
+        const todosNotArchived=res.filter(todo=>todo.archived==false)
+        setTodos(todosNotArchived);
       })
       .catch((e) => console.log(e));
-
+  }, [changeTodos]);
+  useEffect(() => {
     CategoryService.get()
       .then((res) => {
         setCategories(res);
       })
       .catch((e) => console.log(e));
-  }, [changeTodos]);
+  }, [changeCategories]);
   useEffect(() => {
     const completedNum = todos.reduce((a: number, b: Todo) => {
       if (b.isCompleted) {
@@ -59,6 +62,8 @@ const TodosContextProvider = ({ children }: any) => {
         setShowNewTodo,
         changeTodos,
         setChangeTodos,
+        changeCategories,
+        setChangeCategories,
       }}
     >
       {children}

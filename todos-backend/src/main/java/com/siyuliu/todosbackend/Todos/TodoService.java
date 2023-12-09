@@ -50,17 +50,16 @@ public class TodoService {
         // if it exists call some repository method that deletes it
         // return true so it's easy to handle in the controller
         if (foundTodo.isPresent()) {
-            this.todoRepository.delete(foundTodo.get());
+            foundTodo.get().setArchived(true);;
+            // this.todoRepository.delete(foundTodo.get());
             return true;
         }
-
         return false;
-
-        // if it doesn't exist, return false
     }
     
     public Optional<Todo> updateById(Long id, TodoUpdateDTO data) {
         Optional<Todo> foundTodo = this.getById(id);
+        System.out.println(foundTodo.get());
         if (foundTodo.isPresent()) {
             Todo toUpdate = foundTodo.get();
             toUpdate.setContent(data.getContent());

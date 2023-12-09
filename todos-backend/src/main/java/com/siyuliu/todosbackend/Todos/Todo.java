@@ -1,7 +1,5 @@
 package com.siyuliu.todosbackend.Todos;
 
-import org.hibernate.annotations.ManyToAny;
-
 import com.siyuliu.todosbackend.Categories.Category;
 
 import jakarta.persistence.Column;

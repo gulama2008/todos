@@ -61,7 +61,8 @@ public class TodoController {
     
     @PatchMapping("/{id}")
 	public ResponseEntity<Todo> updateById(@PathVariable Long id, 
-			@Valid @RequestBody TodoUpdateDTO data) {
+            @Valid @RequestBody TodoUpdateDTO data) {
+                System.out.println("test1");
 		Optional<Todo> updated = this.todoService.updateById(id, data);
 		if(updated.isPresent()) {
 			return new ResponseEntity<Todo>(updated.get(), HttpStatus.OK);

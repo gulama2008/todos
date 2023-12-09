@@ -11,13 +11,10 @@ public class TodoUpdateDTO {
     @NotBlank
     private String content;
 
-    @NotBlank
     private boolean isArchived;
 
-    @NotBlank
     private boolean isCompleted;
 
-    @NotBlank
     private Long categoryId;
     
 }

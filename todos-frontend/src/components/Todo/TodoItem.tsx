@@ -1,45 +1,121 @@
-import React, { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import {
   Category,
   Todo,
   TodosContext,
 } from "../../context/TodosContextProvider";
 import { TodoService } from "../../services/todos-service";
+import styles from "./TodoItem.module.scss"
+import copy from "../../assets/copy.png"
+import bin from "../../assets/delete.png"
+import edit from "../../assets/edit.png";
+import save from "../../assets/save.png";
 export interface TodoProps {
   todo: Todo;
 }
 const TodoItem = ({ todo }: TodoProps) => {
-  const { categories,changeTodos,setChangeTodos } = useContext(TodosContext);
+  const { categories, changeTodos, setChangeTodos } = useContext(TodosContext);
   const [todoContent, setTodoContent] = useState<string>("");
-  const [todoCategory, setTodoCategory] = useState<number>(todo.category.id);
+  const [todoCategoryId, setTodoCategoryId] = useState<number>(
+    todo.category.id
+  );
+  // const [todoCategoryName, setTodoCategoryName] = useState<string>("");
+  const [isChecked, setIsChecked] = useState<boolean>(false);
+  const [toShowEdit, setToShowEdit] = useState<boolean>(true);
   useEffect(() => {
     setTodoContent(todo.content);
-    setTodoCategory(todo.category.id);
+    setTodoCategoryId(todo.category.id);
+    const todoCategoryName = categories.find(
+      (category: Category) => category.id == todo.category.id
+    );
+    // setTodoCategoryName(todoCategoryName);
   }, []);
   const handleContentChange = (e: any) => {
     setTodoContent(e.target.value);
   };
-    const handleCategoryChange = (e: any) => {
-      setTodoCategory(e.target.value);
-    };
-  
-  const handleDelete = () => { 
+  const handleCategoryChange = (e: any) => {
+    setTodoCategoryId(e.target.value);
+  };
+
+  const handleDelete = () => {
     TodoService.deleteTodo(todo.id)
-      .then(() => setChangeTodos(changeTodos-1))
-    .catch(e=>console.log(e))
-  }
-  
+      .then(() => setChangeTodos(changeTodos - 1))
+      .catch((e) => console.log(e));
+  };
+
+  const handleCheck = () => {
+    setIsChecked(!isChecked);
+  };
+  const handleSave = () => {
+    const data = {
+      content: todoContent,
+      isArchived: false,
+      isCompleted: isChecked,
+      categoryId: todoCategoryId,
+    };
+
+    TodoService.updateTodo(todo.id, data)
+      .then(() => {
+        setChangeTodos(changeTodos + 1);
+        setToShowEdit(true);
+      })
+      .catch((e) => console.log(e));
+  };
+
+  const handleCopy = () => {
+    const data = {
+      content: todoContent,
+      isArchived: false,
+      isCompleted: isChecked,
+      categoryId: todoCategoryId,
+    };
+    TodoService.createTodo(data)
+      .then(() => setChangeTodos(changeTodos + 1))
+      .catch((e) => console.log(e));
+  };
+
   return (
-    <div>
-      <input value={todoContent} onChange={handleContentChange} />
-      <select onChange={handleCategoryChange} value={todoCategory}>
-        {categories.map((category: Category) => {
-          return <option value={category.id} key={category.id}>{category.name}</option>;
-        })}
-      </select>
-      <input type="checkbox" />
-      <button>copy</button>
-      <button onClick={handleDelete}>delete</button>
+    <div className={styles.container}>
+      <div className={styles.content_container}>
+        <input type="checkbox" checked={isChecked} onChange={handleCheck} />
+        {toShowEdit ? (
+          <div>{todoContent}</div>
+        ) : (
+          <input value={todoContent} onChange={handleContentChange} />
+        )}
+      </div>
+      <div className={styles.category_container}>
+        {toShowEdit ? (
+          <div>{todo.category.name}</div>
+        ) : (
+          <select onChange={handleCategoryChange} value={todoCategoryId}>
+            {categories.map((category: Category) => {
+              return (
+                <option value={category.id} key={category.id}>
+                  {category.name}
+                </option>
+              );
+            })}
+          </select>
+        )}
+      </div>
+
+      <div className={styles.icon_container}>
+        <img onClick={handleCopy} src={copy} className={styles.icon} />
+        <img onClick={handleDelete} src={bin} className={styles.icon} />
+
+        {toShowEdit ? (
+          <img
+            onClick={() => {
+              setToShowEdit(false);
+            }}
+            src={edit}
+            className={styles.icon}
+          />
+        ) : (
+          <img onClick={handleSave} src={save} className={styles.icon} />
+        )}
+      </div>
     </div>
   );
 };
