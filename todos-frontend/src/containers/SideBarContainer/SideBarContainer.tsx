@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import styles from "./SideBarContainer.module.scss";
 import {
   Category,
@@ -16,12 +16,11 @@ const SideBarContainer = () => {
     completedNum,
     changeCategories,
     setChangeCategories,
-    currentCategory,
-    setCurrentCategory,
   } = useContext(TodosContext);
   const [cateNums, setCateNums] = useState<number[]>([]);
   const [showAddCategory, setShowAddCategory] = useState<boolean>(false);
   const [categoryName, setCategoryName] = useState<string>("");
+  const ref = useRef<HTMLInputElement>(null);
   useEffect(() => {
     console.log(categories);
 
@@ -36,17 +35,22 @@ const SideBarContainer = () => {
     });
     setCateNums(cateNums);
   }, [todos, categories]);
+  useEffect(() => {
+    if (ref.current) {
+      ref.current.focus();
+    }
+  }, [showAddCategory]);
 
   const handleChange = (e: any) => {
     setCategoryName(e.target.value);
   };
 
+  const handleClickAddBtn = () => {
+    setShowAddCategory(true);
+  };
+
   const handleAddNewCategory = () => {
-    console.log(categoryName);
-
     if (categoryName == "") {
-      console.log("testtest");
-
       setShowAddCategory(false);
     } else {
       const data = {
@@ -62,18 +66,21 @@ const SideBarContainer = () => {
     }
   };
 
+  const handleEnterKeyPress = (e:any) => {
+    if (e.keyCode === 13 || e.which === 13) {
+      handleAddNewCategory();
+    } else if (e.keyCode === 27) {
+      setShowAddCategory(false);
+    }
+  }
+
   return (
     <div className={styles.container}>
       <div className={styles.category_container}>
         <div className={styles.title}>
           <div>Categories</div>
 
-          <div
-            onClick={() => {
-              setShowAddCategory(true);
-            }}
-            className={styles.add_container}
-          >
+          <div onClick={handleClickAddBtn} className={styles.add_container}>
             <img src={add} alt="" className={styles.add} />
           </div>
           {/* <div className={styles.add}>+</div> */}
@@ -81,10 +88,13 @@ const SideBarContainer = () => {
 
         {showAddCategory && (
           <input
+            ref={ref}
             type="text"
             onBlur={handleAddNewCategory}
             onChange={handleChange}
+            onKeyDown={handleEnterKeyPress}
             value={categoryName}
+            className={styles.input}
           />
         )}
         <div className={styles.content}>
