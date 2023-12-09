@@ -7,7 +7,7 @@ import {
 } from "../../context/TodosContextProvider";
 import SideBarItem from "../../components/SideBarItem/SideBarItem";
 import { CategoryService } from "../../services/categories-service";
-
+import add from "../../assets/cross.png";
 const SideBarContainer = () => {
   const {
     categories,
@@ -16,6 +16,8 @@ const SideBarContainer = () => {
     completedNum,
     changeCategories,
     setChangeCategories,
+    currentCategory,
+    setCurrentCategory,
   } = useContext(TodosContext);
   const [cateNums, setCateNums] = useState<number[]>([]);
   const [showAddCategory, setShowAddCategory] = useState<boolean>(false);
@@ -41,10 +43,10 @@ const SideBarContainer = () => {
 
   const handleAddNewCategory = () => {
     console.log(categoryName);
-    
+
     if (categoryName == "") {
       console.log("testtest");
-      
+
       setShowAddCategory(false);
     } else {
       const data = {
@@ -62,15 +64,21 @@ const SideBarContainer = () => {
 
   return (
     <div className={styles.container}>
-      <div>
-        <div>Categories</div>
-        <button
-          onClick={() => {
-            setShowAddCategory(true);
-          }}
-        >
-          Add
-        </button>
+      <div className={styles.category_container}>
+        <div className={styles.title}>
+          <div>Categories</div>
+
+          <div
+            onClick={() => {
+              setShowAddCategory(true);
+            }}
+            className={styles.add_container}
+          >
+            <img src={add} alt="" className={styles.add} />
+          </div>
+          {/* <div className={styles.add}>+</div> */}
+        </div>
+
         {showAddCategory && (
           <input
             type="text"
@@ -79,20 +87,26 @@ const SideBarContainer = () => {
             value={categoryName}
           />
         )}
-        {categories.map((category: Category, index: number) => {
-          return (
-            <SideBarItem
-              title={category.name}
-              number={cateNums[index]}
-              key={category.id}
-            />
-          );
-        })}
+        <div className={styles.content}>
+          <SideBarItem title="All" number={todos.length} index={-1} />
+          {categories.map((category: Category, index: number) => {
+            return (
+              <SideBarItem
+                title={category.name}
+                index={index}
+                number={cateNums[index]}
+                key={category.id}
+              />
+            );
+          })}
+        </div>
       </div>
       <div>
-        <div>Status</div>
-        <SideBarItem title="In Progress" number={incompletedNum} />
-        <SideBarItem title="Completed" number={completedNum} />
+        <div className={styles.title}>Status</div>
+        <div className={styles.content}>
+          <SideBarItem title="In Progress" number={incompletedNum} index={-2} />
+          <SideBarItem title="Completed" number={completedNum} index={-3} />
+        </div>
       </div>
     </div>
   );

@@ -7,8 +7,8 @@ export const TodosContext = createContext<any>(null);
 export interface Todo {
   id: number;
   content: string;
-  isArchived: boolean;
-  isCompleted: boolean;
+  archived: boolean;
+  completed: boolean;
   category: Category;
 }
 export interface Category {
@@ -23,6 +23,7 @@ const TodosContextProvider = ({ children }: any) => {
   const [showNewTodo, setShowNewTodo] = useState<boolean>(false);
   const [changeTodos, setChangeTodos] = useState<number>(0);
   const [changeCategories, setChangeCategories] = useState<number>(0);
+  const [activeSideBarItem, setActiveSideBarItem] = useState<number>(-1);
   useEffect(() => {
     TodoService.get()
       .then((res) => {
@@ -40,7 +41,7 @@ const TodosContextProvider = ({ children }: any) => {
   }, [changeCategories]);
   useEffect(() => {
     const completedNum = todos.reduce((a: number, b: Todo) => {
-      if (b.isCompleted) {
+      if (b.completed) {
         return ++a;
       }
       return a;
@@ -48,6 +49,7 @@ const TodosContextProvider = ({ children }: any) => {
     setCompletedNum(completedNum);
     setIncompletedNum(todos.length - completedNum);
   }, [todos]);
+console.log(todos);
 
   return (
     <TodosContext.Provider
@@ -64,6 +66,8 @@ const TodosContextProvider = ({ children }: any) => {
         setChangeTodos,
         changeCategories,
         setChangeCategories,
+        activeSideBarItem,
+        setActiveSideBarItem,
       }}
     >
       {children}

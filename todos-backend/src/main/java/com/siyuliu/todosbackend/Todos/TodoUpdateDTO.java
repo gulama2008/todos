@@ -11,9 +11,9 @@ public class TodoUpdateDTO {
     @NotBlank
     private String content;
 
-    private boolean isArchived;
+    private boolean archived;
 
-    private boolean isCompleted;
+    private boolean completed;
 
     private Long categoryId;
     

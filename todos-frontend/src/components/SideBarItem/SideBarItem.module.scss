@@ -1,4 +1,19 @@
 .container{
     display: flex;
     justify-content: space-between;
+    padding:3px 20px 3px 20px;
+    cursor: pointer;
+    color: #a2aec6;
+    font-size: 14px;
+    border-radius: 4px;
+}
+
+.active{
+    background-color: #2d4070;
+    color: #e9fdff;
+}
+
+.container:hover{
+    background-color: #2d4070;
+    color: #e9fdff;
 }
