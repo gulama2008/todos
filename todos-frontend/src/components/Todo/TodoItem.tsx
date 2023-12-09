@@ -5,9 +5,9 @@ import {
   TodosContext,
 } from "../../context/TodosContextProvider";
 import { TodoService } from "../../services/todos-service";
-import styles from "./TodoItem.module.scss"
-import copy from "../../assets/copy.png"
-import bin from "../../assets/delete.png"
+import styles from "./TodoItem.module.scss";
+import copy from "../../assets/copy.png";
+import bin from "../../assets/delete.png";
 import edit from "../../assets/edit.png";
 import save from "../../assets/save.png";
 export interface TodoProps {
@@ -44,13 +44,27 @@ const TodoItem = ({ todo }: TodoProps) => {
   };
 
   const handleCheck = () => {
+    if (toShowEdit) {
+      const data = {
+        content: todoContent,
+        archived: false,
+        completed: !isChecked,
+        categoryId: todoCategoryId,
+      };
+      TodoService.updateTodo(todo.id, data)
+        .then(() => {
+          setChangeTodos(changeTodos + 1);
+        })
+        .catch((e) => console.log(e));
+    }
     setIsChecked(!isChecked);
   };
+  
   const handleSave = () => {
     const data = {
       content: todoContent,
-      isArchived: false,
-      isCompleted: isChecked,
+      archived: false,
+      completed: isChecked,
       categoryId: todoCategoryId,
     };
 
@@ -65,8 +79,8 @@ const TodoItem = ({ todo }: TodoProps) => {
   const handleCopy = () => {
     const data = {
       content: todoContent,
-      isArchived: false,
-      isCompleted: isChecked,
+      archived: false,
+      completed: isChecked,
       categoryId: todoCategoryId,
     };
     TodoService.createTodo(data)

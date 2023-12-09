@@ -3,8 +3,6 @@ package com.siyuliu.todosbackend.Todos;
 import java.util.List;
 import java.util.Optional;
 
-import javax.swing.text.html.Option;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -45,10 +43,7 @@ public class TodoService {
     }
 
     public boolean deleteById(Long id) {
-        // check if what I want to delete exists
         Optional<Todo> foundTodo = this.todoRepository.findById(id);
-        // if it exists call some repository method that deletes it
-        // return true so it's easy to handle in the controller
         if (foundTodo.isPresent()) {
             foundTodo.get().setArchived(true);;
             // this.todoRepository.delete(foundTodo.get());
