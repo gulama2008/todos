@@ -36,7 +36,12 @@ public class Todo {
     private Category category;
     
     
-    public Todo() {}
+    public Todo() {
+    }
+    
+    public Todo(String content) {
+        this.content = content;
+    }
 
     public Todo(String content, Category category) {
         this.content = content;
@@ -50,7 +55,4 @@ public class Todo {
         this.category = category;
     }
     
-    public String toString() {
-        return this.category.getName();
-    }
 }

@@ -18,6 +18,7 @@ const SideBarContainer = () => {
     setChangeCategories,
   } = useContext(TodosContext);
   const [cateNums, setCateNums] = useState<number[]>([]);
+  const [noCateNum, setNoCateNum] = useState<number>(0);
   const [showAddCategory, setShowAddCategory] = useState<boolean>(false);
   const [categoryName, setCategoryName] = useState<string>("");
   const ref = useRef<HTMLInputElement>(null);
@@ -26,14 +27,21 @@ const SideBarContainer = () => {
 
     const cateNums = categories.map((category: Category) => {
       const num = todos.reduce((a: number, b: Todo) => {
-        if (b.category.id === category.id) {
+        if (b.category&&b.category.id === category.id) {
           return ++a;
         }
         return a;
       }, 0);
       return num;
     });
+    const noCateNum = todos.reduce((a: number, b: Todo) => { 
+      if (!b.category) { 
+        return ++a;
+      }
+      return a;
+    },0)
     setCateNums(cateNums);
+    setNoCateNum(noCateNum);
   }, [todos, categories]);
   useEffect(() => {
     if (ref.current) {
@@ -109,6 +117,7 @@ const SideBarContainer = () => {
               />
             );
           })}
+          <SideBarItem title="Not categorised" number={noCateNum} index={-4} />
         </div>
       </div>
       <div>

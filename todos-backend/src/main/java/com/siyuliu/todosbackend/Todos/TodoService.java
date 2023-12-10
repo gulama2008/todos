@@ -32,6 +32,12 @@ public class TodoService {
 
     public Todo createTodo(TodoCreateDTO data) {
         Long id = data.getCategoryId();
+        if (id == 0) {
+            String content = data.getContent();
+            Todo newTodo = new Todo(content);
+            Todo created = this.todoRepository.save(newTodo);
+            return created;
+        }
         Optional<Category> category = this.categoryRepository.findById(id);
         if (category.isPresent()) {
             String content = data.getContent();
@@ -60,7 +66,8 @@ public class TodoService {
             toUpdate.setContent(data.getContent());
             toUpdate.setArchived(data.isArchived());
             toUpdate.setCompleted(data.isCompleted());
-            if(toUpdate.getCategory()==null||toUpdate.getCategory().getId()!=data.getCategoryId()){
+            if (data.getCategoryId() != 0
+                    && (toUpdate.getCategory() == null || toUpdate.getCategory().getId() != data.getCategoryId())) {
                 Long categoryId = data.getCategoryId();
                 Optional<Category> category = categoryRepository.findById(categoryId);
                 if (category.isPresent()) {
@@ -70,7 +77,11 @@ public class TodoService {
                 } else {
                     return Optional.of(null);
                 }
-            } else {
+            }else if(data.getCategoryId() == 0&&toUpdate.getCategory() != null){
+                toUpdate.setCategory(null);
+                Todo updatedTodo = this.todoRepository.save(toUpdate);
+                return Optional.of(updatedTodo);
+            }else {
                 Todo updatedTodo = this.todoRepository.save(toUpdate);
                 return Optional.of(updatedTodo);
             }

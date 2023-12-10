@@ -21,7 +21,7 @@ const TodosContainer = () => {
 
     if (activeSideBarItem >= 0) {
       const newDisplayTodos = todos.filter((todo: Todo) => {
-        return todo.category.id == categories[activeSideBarItem].id;
+        return todo.category?.id == categories[activeSideBarItem].id;
       });
       console.log(newDisplayTodos);
       
@@ -30,12 +30,15 @@ const TodosContainer = () => {
       setDisplayTodos(todos);
     } else if (activeSideBarItem === -2) {
       const newDisplayTodos = todos.filter((todo: Todo) => {
-        console.log(todo.completed);
-        
         return todo.completed === false;
       });
       setDisplayTodos(newDisplayTodos);
-    } else {
+    } else if (activeSideBarItem===-4) { 
+      const newDisplayTodos = todos.filter((todo: Todo) => {
+        return todo.category ==null;
+      });
+      setDisplayTodos(newDisplayTodos);
+    }else {
       const newDisplayTodos = todos.filter((todo: Todo) => {
         return todo.completed === true;
       });

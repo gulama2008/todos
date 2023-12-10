@@ -1,7 +1,7 @@
 import { Todo } from "../context/TodosContextProvider";
 export interface NewTodoParams {
   content: string;
-  categoryId: number;
+  categoryId: number|null;
 }
 export class TodoService {
   public static async get(): Promise<any[]> {

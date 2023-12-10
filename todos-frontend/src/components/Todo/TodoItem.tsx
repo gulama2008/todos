@@ -17,24 +17,32 @@ const TodoItem = ({ todo }: TodoProps) => {
   const { categories, changeTodos, setChangeTodos } = useContext(TodosContext);
   const [todoContent, setTodoContent] = useState<string>("");
   const [todoCategoryId, setTodoCategoryId] = useState<number>(
-    todo.category.id
+    todo.category?.id
   );
   // const [todoCategoryName, setTodoCategoryName] = useState<string>("");
   const [isChecked, setIsChecked] = useState<boolean>(false);
   const [toShowEdit, setToShowEdit] = useState<boolean>(true);
   useEffect(() => {
     setTodoContent(todo.content);
-    setTodoCategoryId(todo.category.id);
-    const todoCategoryName = categories.find(
-      (category: Category) => category.id == todo.category.id
-    );
+    if (todo.category) {
+      setTodoCategoryId(todo.category.id);
+    } else { 
+      setTodoCategoryId(0);
+    }
+
+    // const todoCategoryName = categories.find(
+    //   (category: Category) => category.id == todo.category.id
+    // );
     // setTodoCategoryName(todoCategoryName);
   }, []);
   const handleContentChange = (e: any) => {
     setTodoContent(e.target.value);
   };
   const handleCategoryChange = (e: any) => {
-    setTodoCategoryId(e.target.value);
+    // if (e.target.value === 0) {
+    //   setTodoCategoryId(null);
+    // } else {
+      setTodoCategoryId(e.target.value);
   };
 
   const handleDelete = () => {
@@ -49,7 +57,8 @@ const TodoItem = ({ todo }: TodoProps) => {
         content: todoContent,
         archived: false,
         completed: !isChecked,
-        categoryId: todoCategoryId,
+        // categoryId: todoCategoryId ? todoCategoryId : null,
+        categoryId: todoCategoryId
       };
       TodoService.updateTodo(todo.id, data)
         .then(() => {
@@ -59,13 +68,14 @@ const TodoItem = ({ todo }: TodoProps) => {
     }
     setIsChecked(!isChecked);
   };
-  
+
   const handleSave = () => {
     const data = {
       content: todoContent,
       archived: false,
       completed: isChecked,
-      categoryId: todoCategoryId,
+      // categoryId: todoCategoryId ? todoCategoryId : null,
+      categoryId: todoCategoryId
     };
 
     TodoService.updateTodo(todo.id, data)
@@ -100,7 +110,7 @@ const TodoItem = ({ todo }: TodoProps) => {
       </div>
       <div className={styles.category_container}>
         {toShowEdit ? (
-          <div>{todo.category.name}</div>
+          <div>{todo.category ? todo.category.name : "Not categorised"}</div>
         ) : (
           <select onChange={handleCategoryChange} value={todoCategoryId}>
             {categories.map((category: Category) => {
@@ -110,6 +120,7 @@ const TodoItem = ({ todo }: TodoProps) => {
                 </option>
               );
             })}
+            <option value={0}>Not categorised</option>
           </select>
         )}
       </div>

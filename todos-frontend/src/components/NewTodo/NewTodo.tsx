@@ -44,7 +44,7 @@ const NewTodo = () => {
           setCategory(parseInt(e.target.value));
         }}
       >
-        <option value="" className={styles.option}>
+        <option value={0} className={styles.option}>
           Please select a category
         </option>
         {categories.map((category: Category) => {
