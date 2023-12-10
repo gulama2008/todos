@@ -23,26 +23,24 @@ const SideBarContainer = () => {
   const [categoryName, setCategoryName] = useState<string>("");
   const ref = useRef<HTMLInputElement>(null);
   useEffect(() => {
-    console.log(categories);
-
     const cateNums = categories.map((category: Category) => {
       const num = todos.reduce((a: number, b: Todo) => {
-        if (b.category&&b.category.id === category.id) {
+        if (b.category && b.category.id === category.id) {
           return ++a;
         }
         return a;
       }, 0);
       return num;
     });
-    const noCateNum = todos.reduce((a: number, b: Todo) => { 
-      if (!b.category) { 
+    const noCateNum = todos.reduce((a: number, b: Todo) => {
+      if (!b.category) {
         return ++a;
       }
       return a;
-    },0)
+    }, 0);
     setCateNums(cateNums);
     setNoCateNum(noCateNum);
-  }, [todos, categories]);
+  }, [todos, categories,changeCategories]);
   useEffect(() => {
     if (ref.current) {
       ref.current.focus();
@@ -74,13 +72,13 @@ const SideBarContainer = () => {
     }
   };
 
-  const handleEnterKeyPress = (e:any) => {
+  const handleEnterKeyPress = (e: any) => {
     if (e.keyCode === 13 || e.which === 13) {
       handleAddNewCategory();
     } else if (e.keyCode === 27) {
       setShowAddCategory(false);
     }
-  }
+  };
 
   return (
     <div className={styles.container}>
@@ -110,8 +108,9 @@ const SideBarContainer = () => {
           {categories.map((category: Category, index: number) => {
             return (
               <SideBarItem
+                category={category}
                 title={category.name}
-                index={index}
+                index={category.id}
                 number={cateNums[index]}
                 key={category.id}
               />

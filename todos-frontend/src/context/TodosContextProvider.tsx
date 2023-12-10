@@ -31,7 +31,7 @@ const TodosContextProvider = ({ children }: any) => {
         setTodos(todosNotArchived);
       })
       .catch((e) => console.log(e));
-  }, [changeTodos]);
+  }, [changeTodos,changeCategories]);
   useEffect(() => {
     CategoryService.get()
       .then((res) => {

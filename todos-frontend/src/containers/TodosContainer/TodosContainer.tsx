@@ -19,9 +19,9 @@ const TodosContainer = () => {
   useEffect(() => {
     console.log(activeSideBarItem);
 
-    if (activeSideBarItem >= 0) {
+    if (activeSideBarItem > 0) {
       const newDisplayTodos = todos.filter((todo: Todo) => {
-        return todo.category?.id == categories[activeSideBarItem].id;
+        return todo.category?.id == activeSideBarItem;
       });
       console.log(newDisplayTodos);
       

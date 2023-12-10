@@ -19,4 +19,13 @@ export class CategoryService {
     }
     return response.json();
   }
+
+  public static async deleteCategory(id: number) {
+    const response = await fetch(`http://localhost:8080/categories/${id}`, {
+      method: "DELETE",
+    });
+    if (!response.ok) {
+      throw new Error("Could not delete");
+    }
+  }
 }
