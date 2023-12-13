@@ -26,6 +26,10 @@ public class CategoryService {
         return this.categoryRepository.findAll();
     }
 
+    public Optional<Category> getById(Long id) {
+    return this.categoryRepository.findById(id);
+}
+
     public Category createCategory(CategoryCreateDTO data) {
         String name = data.getName();
         Category newCategory = new Category(name);
@@ -37,7 +41,7 @@ public class CategoryService {
         Optional<Category> foundCategory = this.categoryRepository.findById(id);
         if (foundCategory.isPresent()) {
             List<Todo> todos = todoRepository.findByCategory(foundCategory.get());
-            if(todos.size()!=0){
+            if (todos.size() != 0) {
                 for (Todo todo : todos) {
                     todo.setCategory(null);
                     this.todoRepository.save(todo);
@@ -47,5 +51,16 @@ public class CategoryService {
             return true;
         }
         return false;
+    }
+    
+    public Optional<Category> updateById(Long id, CategoryUpdateDTO data) {
+        Optional<Category> foundCategory = this.getById(id);
+    if(foundCategory.isPresent()) {
+        Category toUpdate = foundCategory.get();
+        toUpdate.setName(data.getName());
+        Category updatedCategory = this.categoryRepository.save(toUpdate);
+        return Optional.of(updatedCategory);
+    }
+	return foundCategory;
     }
 }

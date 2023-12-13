@@ -28,4 +28,17 @@ export class CategoryService {
       throw new Error("Could not delete");
     }
   }
+
+  public static async updateCategory(id: number, data: any) {
+    const response = await fetch(`http://localhost:8080/categories/${id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+    if (!response.ok) {
+      throw new Error("Could not update");
+    }
+  }
 }

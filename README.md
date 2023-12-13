@@ -62,10 +62,10 @@ This is an application that allows people to track, add, and delete tasks as wel
 ![add](./todos-frontend/src/assets/new.png)
 
 ## Known Issues  
- The functionality of editing a category hasn't been added yet
+ The functionality of editing a category is currently using the PATCH method, not PUT, since there is always some cors errors showing in the console and I haven't fixed it yet
 
 ## Future Goals
 
 - Add test
-- Add edit category functionality
+- Change editing category from PATCH to PUT endpoint
 

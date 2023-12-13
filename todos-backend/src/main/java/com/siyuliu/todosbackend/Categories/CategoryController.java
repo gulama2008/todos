@@ -1,21 +1,22 @@
 package com.siyuliu.todosbackend.Categories;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.siyuliu.exceptions.NotFoundException;
-import com.siyuliu.todosbackend.Todos.Todo;
-import com.siyuliu.todosbackend.Todos.TodoCreateDTO;
 
 import jakarta.validation.Valid;
 
@@ -46,4 +47,14 @@ public class CategoryController {
         }
         throw new NotFoundException(String.format("Category with id %d does not exist, could not delete", id));
     }
+
+    @PatchMapping("/{id}")
+	public ResponseEntity<Category> updateById(@PathVariable Long id, 
+            @Valid @RequestBody CategoryUpdateDTO data) {
+		Optional<Category> updated = this.categoryService.updateById(id, data);
+        if (updated.isPresent()) {
+			return new ResponseEntity<Category>(updated.get(), HttpStatus.OK);
+		}
+        throw new NotFoundException(String.format("Category with id %d does not exist, could not update", id));
+	}
 }

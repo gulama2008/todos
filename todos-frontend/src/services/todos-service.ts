@@ -1,7 +1,7 @@
 import { Todo } from "../context/TodosContextProvider";
 export interface NewTodoParams {
   content: string;
-  categoryId: number|null;
+  categoryId: number | null;
 }
 export class TodoService {
   public static async get(): Promise<any[]> {
@@ -39,19 +39,19 @@ export class TodoService {
       throw new Error("Could not delete");
     }
   }
-    
-    public static async updateTodo(id: number, data: any) { 
-        console.log('test');
-        
-        const response = await fetch(`http://localhost:8080/todos/${id}`, {
-          method: "PATCH",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(data),
-        });
-        if (!response.ok) {
-          throw new Error("Could not update");
-        }
+
+  public static async updateTodo(id: number, data: any) {
+    console.log("test");
+
+    const response = await fetch(`http://localhost:8080/todos/${id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+    if (!response.ok) {
+      throw new Error("Could not update");
     }
+  }
 }
