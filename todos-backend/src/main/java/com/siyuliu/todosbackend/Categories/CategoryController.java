@@ -1,4 +1,4 @@
-package com.siyuliu.todosbackend.Categories;
+package com.siyuliu.todosbackend.categories;
 
 import java.util.List;
 import java.util.Optional;
@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.siyuliu.exceptions.NotFoundException;
+import com.siyuliu.todosbackend.exceptions.NotFoundException;
 
 import jakarta.validation.Valid;
 
@@ -48,7 +48,7 @@ public class CategoryController {
         throw new NotFoundException(String.format("Category with id %d does not exist, could not delete", id));
     }
 
-    @PatchMapping("/{id}")
+    @PutMapping("/{id}")
 	public ResponseEntity<Category> updateById(@PathVariable Long id, 
             @Valid @RequestBody CategoryUpdateDTO data) {
 		Optional<Category> updated = this.categoryService.updateById(id, data);

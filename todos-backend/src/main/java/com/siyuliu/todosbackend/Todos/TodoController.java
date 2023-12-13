@@ -1,4 +1,4 @@
-package com.siyuliu.todosbackend.Todos;
+package com.siyuliu.todosbackend.todos;
 
 import java.util.List;
 import java.util.Optional;
@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.siyuliu.exceptions.NotFoundException;
+import com.siyuliu.todosbackend.exceptions.NotFoundException;
 
 import jakarta.validation.Valid;
 

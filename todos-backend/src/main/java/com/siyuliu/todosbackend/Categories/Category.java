@@ -1,8 +1,8 @@
-package com.siyuliu.todosbackend.Categories;
+package com.siyuliu.todosbackend.categories;
 
 import java.util.List;
 
-import com.siyuliu.todosbackend.Todos.Todo;
+import com.siyuliu.todosbackend.todos.Todo;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

@@ -1,5 +1,6 @@
-package com.siyuliu.todosbackend.Todos;
-import com.siyuliu.todosbackend.Categories.Category;
+package com.siyuliu.todosbackend.todos;
+import com.siyuliu.todosbackend.categories.Category;
+
 import lombok.Getter;
 import lombok.Setter;
 

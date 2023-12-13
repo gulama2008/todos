@@ -10,7 +10,6 @@ This is an application that allows people to track, add, and delete tasks as wel
     - [MVP](#mvp)
     - [Bonus](#bonus)
 - [Features](#features)
-- [Known Issues](#known-issues)
 - [Future Goals](#future-goals)
 
 ## Snippets
@@ -61,11 +60,8 @@ This is an application that allows people to track, add, and delete tasks as wel
 - When clicking the "Add new" button, a new line will be shown on the top of the list with an empty input box for the content and a select box for the category, the user can click the save icon to save the new todo, or click the delete icon to delete it.
 ![add](./todos-frontend/src/assets/new.png)
 
-## Known Issues  
- The functionality of editing a category is currently using the PATCH method, not PUT, since there is always some cors errors showing in the console and I haven't fixed it yet
 
 ## Future Goals
-
 - Add test
-- Change editing category from PATCH to PUT endpoint
+
 

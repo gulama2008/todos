@@ -1,4 +1,4 @@
-package com.siyuliu.todosbackend.Categories;
+package com.siyuliu.todosbackend.categories;
 
 import lombok.Getter;
 import lombok.Setter;

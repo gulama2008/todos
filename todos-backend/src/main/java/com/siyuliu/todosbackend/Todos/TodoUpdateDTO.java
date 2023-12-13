@@ -1,4 +1,4 @@
-package com.siyuliu.todosbackend.Todos;
+package com.siyuliu.todosbackend.todos;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;

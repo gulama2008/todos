@@ -1,8 +1,10 @@
-package com.siyuliu.todosbackend.Todos;
+package com.siyuliu.todosbackend.todos;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.siyuliu.todosbackend.categories.Category;
+
 import java.util.List;
-import com.siyuliu.todosbackend.Categories.Category;
 
 
 public interface TodoRepository extends JpaRepository<Todo,Long>{

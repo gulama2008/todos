@@ -31,7 +31,7 @@ export class CategoryService {
 
   public static async updateCategory(id: number, data: any) {
     const response = await fetch(`http://localhost:8080/categories/${id}`, {
-      method: "PATCH",
+      method: "PUT",
       headers: {
         "Content-Type": "application/json",
       },

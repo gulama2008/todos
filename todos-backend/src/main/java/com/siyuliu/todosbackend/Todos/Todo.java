@@ -1,6 +1,6 @@
-package com.siyuliu.todosbackend.Todos;
+package com.siyuliu.todosbackend.todos;
 
-import com.siyuliu.todosbackend.Categories.Category;
+import com.siyuliu.todosbackend.categories.Category;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

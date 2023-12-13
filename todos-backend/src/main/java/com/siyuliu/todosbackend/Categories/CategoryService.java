@@ -1,4 +1,4 @@
-package com.siyuliu.todosbackend.Categories;
+package com.siyuliu.todosbackend.categories;
 
 import java.util.List;
 import java.util.Optional;
@@ -6,9 +6,9 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.siyuliu.todosbackend.Todos.Todo;
-import com.siyuliu.todosbackend.Todos.TodoCreateDTO;
-import com.siyuliu.todosbackend.Todos.TodoRepository;
+import com.siyuliu.todosbackend.todos.Todo;
+import com.siyuliu.todosbackend.todos.TodoCreateDTO;
+import com.siyuliu.todosbackend.todos.TodoRepository;
 
 import jakarta.transaction.Transactional;
 

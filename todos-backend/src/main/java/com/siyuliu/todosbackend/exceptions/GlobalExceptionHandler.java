@@ -1,4 +1,4 @@
-package com.siyuliu.exceptions;
+package com.siyuliu.todosbackend.exceptions;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

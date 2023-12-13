@@ -1,4 +1,4 @@
-package com.siyuliu.todosbackend.Categories;
+package com.siyuliu.todosbackend.categories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
