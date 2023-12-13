@@ -48,7 +48,7 @@ This is an application that allows people to track, add, and delete tasks as wel
 
 - This todos application has two sections: a side bar, which contains all the categories and the status of completed or in progress with the number of todos under each category and status, and the todo list part which shows all the todos or the todos under a particular category or status: 
 ![overview](./todos-frontend/src/assets/overview.png)
-- For the categories section, the user can click the "+" to add category, or click "x" to delete a category. Once a category is deleted, all the todos which previously belong to this category will fall into the "Not categorised" category. 
+- For the categories section, the user can click the "+" to add category, or click "x" to delete a category. Once a category is deleted, all the todos which previously belong to this category will fall into the "Not categorised" category.   
 ![category](./todos-frontend/src/assets/category.png)
 - When adding a new category, after click the "+", there will be a input box showing on the top, the user can simply press enter or click anywhere on the screen to add a new category, then the new category will be shown in the categories section with a number of todos 0. Also the user can quit the adding anytime by press the Esc key, the input box will disappear after pressing the Esc key.   
 ![add](./todos-frontend/src/assets/add.png)
