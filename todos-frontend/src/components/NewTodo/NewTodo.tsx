@@ -3,7 +3,6 @@ import { Category, TodosContext } from "../../context/TodosContextProvider";
 import { TodoService } from "../../services/todos-service";
 import styles from "./NewTodo.module.scss"
 import bin from "../../assets/delete.png";
-import edit from "../../assets/edit.png";
 import save from "../../assets/save.png";
 
 const NewTodo = () => {

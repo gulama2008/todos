@@ -9,8 +9,6 @@ const TodosContainer = () => {
     showNewTodo,
     setShowNewTodo,
     activeSideBarItem,
-    setActiveSideBarItem,
-    categories,
   } = useContext(TodosContext);
 
   const [displayTodos, setDisplayTodos] = useState<Todo[]>(todos);
@@ -57,7 +55,7 @@ const TodosContainer = () => {
         <div className={styles.title}>My TODO List</div>
 
         <button onClick={handleAddNew} className={styles.add}>
-          Add new
+          Add New
         </button>
         {showNewTodo && <NewTodo />}
         {displayTodos.map((todo: Todo) => {

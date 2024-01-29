@@ -62,6 +62,7 @@ This is an application that allows people to track, add, and delete tasks as wel
 
 
 ## Future Goals
+- Add validation on creating new category to prevent adding duplicate categories
 - Add test
 
 

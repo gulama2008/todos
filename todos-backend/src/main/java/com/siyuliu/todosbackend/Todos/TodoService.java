@@ -51,7 +51,8 @@ public class TodoService {
     public boolean deleteById(Long id) {
         Optional<Todo> foundTodo = this.todoRepository.findById(id);
         if (foundTodo.isPresent()) {
-            foundTodo.get().setArchived(true);;
+            System.out.println("TEST DELETE");
+            foundTodo.get().setArchived(true);
             // this.todoRepository.delete(foundTodo.get());
             return true;
         }

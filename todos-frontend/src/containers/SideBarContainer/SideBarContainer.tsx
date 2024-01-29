@@ -76,6 +76,7 @@ const SideBarContainer = () => {
     if (e.keyCode === 13 || e.which === 13) {
       handleAddNewCategory();
     } else if (e.keyCode === 27) {
+      setCategoryName("");
       setShowAddCategory(false);
     }
   };

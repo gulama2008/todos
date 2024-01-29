@@ -68,6 +68,7 @@ console.log(todos);
         setChangeCategories,
         activeSideBarItem,
         setActiveSideBarItem,
+        
       }}
     >
       {children}
