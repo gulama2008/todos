@@ -22,4 +22,4 @@ COPY todos-frontend/. .
 EXPOSE 5173
 
 # Run dev, as we would via the command line
-CMD npm run dev
+CMD npm run dev -- --host
